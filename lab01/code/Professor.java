@@ -2,18 +2,31 @@ package lab01.code;
 
 import java.util.ArrayList;
 
-public class Professor{
+public class Professor extends Usuario {
 
-    private String nome;
     private ArrayList<Disciplina> disciplinasLecionadas;
 
-    public Professor(){
-
+    public Professor(String nome, String senha) {
+        super(nome, senha);
     }
 
-    // Lista as disciplinas lecionadas pelo professor
-    public String listarDisciplinas(){
-        return "";
+    // Retorna todas as disciplinas lecionadas pelo professor
+    public StringBuffer listarDisciplinas() throws AutentificacaoException {
+        
+        StringBuffer sb = new StringBuffer();
+
+        if (isAutenticado()) {
+
+            for (int i = 0; i < disciplinasLecionadas.size(); i++) {
+                sb.append(disciplinasLecionadas.get(i).getNome());
+            }
+        }
+        else {
+            throw new AutentificacaoException();
+        }
+
+        return sb;
+
     }
 
 }
