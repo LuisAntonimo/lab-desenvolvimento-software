@@ -11,6 +11,7 @@ public class Disciplina {
     private Professor professor;
     private int creditos;
     private float custo;
+    private ArrayList<Aluno> alunos;
     
     public Disciplina(){
 
@@ -34,6 +35,13 @@ public class Disciplina {
 
     // Lista todos os alunos matriculados na disciplina
     public String listarAlunos(){
-        return "";
+
+        StringBuffer sb = new StringBuffer();
+        
+        for (int i = 0; i < alunos.size(); i++) {
+            sb.append(alunos.get(i).getNome());
+        }
+
+        return sb;
     }
 }

@@ -14,9 +14,53 @@ public class Curso {
 
     }
 
+    // getters/setters
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    //
+
+    public int getNumCreditos() {
+        return numCreditos;
+    }
+
+    public void setNumCreditos(int numCreditos) {
+        this.numCreditos = numCreditos;
+    }
+
+    //
+
+    public ArrayList<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void setDisciplinas(ArrayList<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
+    }
+
     // Lista as disciplinas do curso
     public String listarDisciplinas(){
-        return "";
+
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < disciplinas.size(); i++) {
+            sb.append(disciplinas.get(i).getNome());
+        }
+
+        return sb;
     }
+
+    // Adicionar disciplina a lista
+    public void adicionarDisciplina(Disciplina nova){
+        this.getDisciplinas().add(nova);
+    }
+
+    
     
 }
