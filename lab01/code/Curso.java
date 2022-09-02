@@ -45,7 +45,7 @@ public class Curso {
     }
 
     // Lista as disciplinas do curso
-    public String listarDisciplinas(){
+    public StringBuffer listarDisciplinas(){
 
         StringBuffer sb = new StringBuffer();
 

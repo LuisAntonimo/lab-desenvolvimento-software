@@ -11,9 +11,15 @@ public class Aluno extends Usuario {
 
     public Aluno(String nome, String senha) {
         super(nome, senha);
+
+        getMatricula().gerarNumeroMatricula();
     }
 
     // Getters
+
+    public Matricula getMatricula() {
+        return matricula;
+    }
 
     // Setters
 
@@ -29,6 +35,15 @@ public class Aluno extends Usuario {
         return "Nome: " + getNome() + " || " + "Disciplinas cursadas: " + sb;
     }
 
+    // Adiciona aluno na disciplina
+
+    public void adicionarAluno(Disciplina disciplina){
+        if(disciplina.validarMatricula()){
+            disciplinasCursadas.add(disciplina);
+        }
+        
+    }
+
     // Matricula o aluno em determinada disciplina
     public void matricular(Disciplina disciplina) throws AutentificacaoException {
 
@@ -37,10 +52,11 @@ public class Aluno extends Usuario {
         if (isAutenticado()) {
 
             if (disciplina.isObrigatoria() && quantidadeDiscObrigatorias() < MAX_DISC_OBRIGATORIAS) {
-                disciplinasCursadas.add(disciplina);
+                adicionarAluno(disciplina);
+                
 
             } else if (disciplina.isObrigatoria() == false && numDiscOptativas < MAX_DISC_OPTATIVAS) {
-                disciplinasCursadas.add(disciplina);
+                adicionarAluno(disciplina);
             }
         }
 
