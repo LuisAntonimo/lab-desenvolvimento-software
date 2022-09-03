@@ -1,4 +1,4 @@
-package lab01.code;
+package lab01;
 
 import java.util.ArrayList;
 

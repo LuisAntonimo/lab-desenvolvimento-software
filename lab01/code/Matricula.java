@@ -1,31 +1,29 @@
-package lab01.code;
+package lab01;
 
 public class Matricula {
 
-    private Curso curso;
-    private static int ID;
-    private int identificador;
+	private Curso curso;
+	private static int GERADOR_ID;
+	private int id;
 
-    // Mostra relatorio contendo dados da matricula
-    public String mostrarRelatorio(){
-        return "";
-    }
+	// Mostra relatorio contendo dados da matricula
+	public String mostrarRelatorio() {
+		return "";
+	}
 
-    // Getters 
+	// Getters
 
-    public Curso getCurso() {
-        return curso;
-    }
+	public Curso getCurso() {
+		return curso;
+	}
 
-    public int getIdentificador() {
-        return identificador;
-    }
+	public int getIdentificador() {
+		return id;
+	}
 
-    // Gera número de matrícula
-    public void gerarNumeroMatricula(){
-        this.identificador = ID++;
-        this.ID++;
+	// Gera número de matrícula
+	public void gerarNumeroMatricula() {
+		this.id = GERADOR_ID++;
+	}
 
-    }
-    
 }
