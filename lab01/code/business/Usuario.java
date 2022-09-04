@@ -16,6 +16,10 @@ public class Usuario {
 		return nome;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
 	public boolean isAutenticado() {
 		return isAutenticado;
 	}

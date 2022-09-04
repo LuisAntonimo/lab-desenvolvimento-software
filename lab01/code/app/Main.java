@@ -1,8 +1,13 @@
 package lab01.code.app;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import lab01.code.business.Aluno;
+import lab01.code.business.AutentificacaoException;
+import lab01.code.business.Curso;
+import lab01.code.business.CursoInexistenteException;
 import lab01.code.business.Disciplina;
 import lab01.code.business.Financeiro;
 import lab01.code.business.Professor;
@@ -10,7 +15,6 @@ import lab01.code.business.Secretaria;
 
 // Questões pendentes:
 // Encontrar aluno, professor, disciplina, etc...
-// nextByte() ?
 
 public class Main {
 
@@ -18,20 +22,29 @@ public class Main {
 
     // Sub menu do aluno
 
-    public static void menuAluno() {
+    public static void menuAluno() throws AutentificacaoException {
         System.out.println("Login Aluno");
 
+        Aluno aluno;
+        Map<String, Disciplina> disciplinaMap = new HashMap<>();
         String choiceName;
         String choicePass;
 
         do {
-            Scanner acesso;
+            Scanner acesso = new Scanner(System.in);
 
             System.out.println("Digite seu nome: ");
             choiceName = acesso.nextLine();
 
             System.out.println("Digite sua senha: ");
             choicePass = acesso.nextLine();
+
+            for (int i = 0; i < secretaria.getAlunos().size(); i++) {
+                if (secretaria.getAlunos().get(i).getNome().equals(choiceName)
+                        && secretaria.getAlunos().get(i).getSenha().equals(choicePass)) {
+                    aluno = secretaria.getAlunos().get(i);
+                }
+            }
 
             aluno.realizarLogin(choiceName, choicePass);
 
@@ -56,31 +69,34 @@ public class Main {
                 aluno.mostrarDados();
                 break;
             case "2":
-                Disciplina disciplina;
 
                 System.out.println("Insira a disciplina");
-                disciplina = scan.nextByte();
+                String input = scan.nextLine().toLowerCase();
+
+                Disciplina disciplina = disciplinaMap.get(input);
 
                 aluno.adicionarDisciplina(disciplina);
 
                 break;
 
             case "3":
-                Disciplina disciplinaMatricular;
 
                 System.out.println("Insira a disciplina para matricular");
-                disciplinaMatricular = scan.nextByte();
+                String inputMatricula = scan.nextLine().toLowerCase();
+
+                Disciplina disciplinaMatricular = disciplinaMap.get(inputMatricula);
 
                 aluno.matricular(disciplinaMatricular);
 
                 break;
             case "4":
 
-                Disciplina disciplinaCancelar;
-
                 System.out.println("Insira a disciplina para cancelar");
-                disciplinaCancelar = scan.nextByte();
+                String inputCancelar = scan.nextLine().toLowerCase();
+
+                Disciplina disciplinaCancelar = disciplinaMap.get(inputCancelar);
                 aluno.cancelarMatricula(disciplinaCancelar);
+                
                 break;
 
         }
@@ -91,21 +107,29 @@ public class Main {
     public static void menuProfessor() {
         System.out.println("Login Professor");
 
+        Professor professor;
         String choiceName;
         String choicePass;
 
         do {
+            Scanner acesso = new Scanner(System.in)
+
             System.out.println("Digite seu nome: ");
-            Scanner sNome = new Scanner(System.in);
-            choiceName = sNome.nextLine();
+            choiceName = acesso.nextLine();
 
             System.out.println("Digite sua senha: ");
-            Scanner sSenha = new Scanner(System.in);
-            choicePass = sSenha.nextLine();
+            choicePass = acesso.nextLine();
+
+            for (int i = 0; i < secretaria.getProfessores().size(); i++) {
+                if (secretaria.getProfessores().get(i).getNome().equals(choiceName)
+                        && secretaria.getProfessores().get(i).getSenha().equals(choicePass)) {
+                    professor = (Professor) secretaria.getProfessores().clone();
+                }
+            }
 
             professor.realizarLogin(choiceName, choicePass);
 
-        } while (!professor.isAutenticado());
+        } while (! professor.isAutenticado());
 
         // Opções quando o professor esta logado
 
@@ -129,7 +153,7 @@ public class Main {
 
     // Sub menu da secretaria
 
-    public static void menuSecretaria() {
+    public static void menuSecretaria() throws CursoInexistenteException {
 
         // Opções secretaria
 
@@ -146,14 +170,17 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         choice = scan.nextLine();
 
+        Scanner leitor = new Scanner(System.in);
+
         switch (choice) {
             case "1":
-                Scanner leitor = new Scanner(System.in);
                 String nome;
                 boolean obrigatoria;
                 int cargaHoraria;
                 Professor professor;
                 int creditos;
+                float custo;
+                Curso curso;
 
                 System.out.println("Insira o nome da disciplina");
                 nome = leitor.nextLine();
@@ -161,25 +188,41 @@ public class Main {
                 obrigatoria = leitor.nextBoolean();
                 System.out.println("Insira a carga horaria");
                 cargaHoraria = leitor.nextInt();
-                System.out.println("Insira o professor");
-                professor = leitor.nextByte();
+                System.out.println("Insira o nome professor");
+                String nomeProfessor = leitor.nextLine();
+
+                for(int i = 0; i < secretaria.getProfessores().size(); i++){
+                    if(secretaria.getProfessores().get(i).getNome().equals(nomeProfessor)){
+                        professor = secretaria.getProfessores().get(i);
+                    }
+                }
                 System.out.println("Insira o numero de creditos");
                 creditos = leitor.nextInt();
+                System.out.println("Insira o custo da disciplina");
+                custo = leitor.nextFloat();
+                System.out.println("Insira o nome do curso");
+                String nomeCurso = leitor.nextLine();
 
-                secretaria.criarDisciplina(nome, obrigatoria, cargaHoraria, professor, creditos);
+                for(int i = 0; i < secretaria.getProfessores().size(); i++){
+                    if(secretaria.getCursos().get(i).getNome().equals(nomeCurso)){
+                        curso = secretaria.getCursos().get(i);
+                    }
+                }
+
+                secretaria.criarDisciplina(nome, obrigatoria, cargaHoraria, professor, creditos, custo, curso);
 
                 break;
 
             case "2":
-                String nomeCurso;
+                String nomeDoCurso;
                 int numCreditos;
 
                 System.out.println("Insira o nome do curso");
-                nome = leitor.nextLine();
+                nomeDoCurso = leitor.nextLine();
                 System.out.println("Insira a quantidade de creditos");
-                creditos = leitor.nextInt();
+                numCreditos = leitor.nextInt();
 
-                secretaria.criarCurso(nomeCurso, numCreditos);
+                secretaria.criarCurso(nomeDoCurso, numCreditos);
 
                 break;
 
@@ -192,21 +235,21 @@ public class Main {
                 System.out.println("Insira a sua senha");
                 senhaAluno = leitor.nextLine();
 
-                secretaria.cadastrarAluno(nome, senhaAluno);
+                secretaria.cadastrarAluno(nomeAluno, senhaAluno);
 
                 break;
 
             case "4":
 
-                String nomeProfessor;
+                String nomeDoProfessor;
                 String senhaProfessor;
 
                 System.out.println("Insira o seu nome");
-                nomeProfessor = leitor.nextLine();
+                nomeDoProfessor = leitor.nextLine();
                 System.out.println("Insira a sua senha");
                 senhaProfessor = leitor.nextLine();
 
-                secretaria.cadastrarProfessor(nome, senha);
+                secretaria.cadastrarProfessor(nomeDoProfessor, senhaProfessor);
 
                 break;
 
@@ -214,8 +257,14 @@ public class Main {
 
                 Disciplina disciplina;
 
-                System.out.println("Insira a disciplina");
-                disciplina = leitor.nextByte();
+                System.out.println("Insira o nome da disciplina");
+                String nomeDisciplina = leitor.nextLine();
+
+                for(int i = 0; i < secretaria.getCurriculoSemestre().size(); i++){
+                    if(secretaria.getCurriculoSemestre().get(i).getNome().equals(nomeDisciplina)){
+                        disciplina = secretaria.getCurriculoSemestre().get(i);
+                    }
+                }
 
                 secretaria.addDisciplinaSemestre(disciplina);
 
@@ -242,9 +291,15 @@ public class Main {
                 Aluno aluno;
 
                 System.out.println("Insira o aluno");
-                aluno = leitor.nextByte();
+                String aluno2 = leitor.nextLine();
+                for(int i = 0; i < secretaria.getAlunos().size(); i++){
+                    if(secretaria.getAlunos().get(i).getNome().equals(aluno2)){
+                        aluno = secretaria.getAlunos().get(i);
+                    }
 
-                financeiro.calcularCobranca(aluno);
+                }
+
+                Financeiro.calcularCobranca(aluno);
 
                 break;
 
@@ -252,18 +307,24 @@ public class Main {
                 Aluno alunoCobranca;
                 float valorFinal;;
 
-                System.out.println("Insira o aluno");
-                alunoCobranca = leitor.nextByte();
+                System.out.println("Insira o nome do aluno");
+                String nomeAluno = leitor.nextLine();
+                for(int i = 0; i < secretaria.getAlunos().size(); i++){
+                    if(secretaria.getAlunos().get(i).getNome().equals(nomeAluno)){
+                        alunoCobranca = secretaria.getAlunos().get(i);
+                    }
+
+                }
                 System.out.println("Insira o valor final da cobranca");
                 valorFinal = leitor.nextFloat();
 
-                financeiro.enviarCobranca(alunoCobranca, valorFinal);
+                Financeiro.enviarCobranca(alunoCobranca, valorFinal);
 
                 break;
 
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws CursoInexistenteException, AutentificacaoException {
 
         System.out.println(" SGA 2.0");
         System.out.println("Entrar como: ");

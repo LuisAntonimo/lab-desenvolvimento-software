@@ -10,7 +10,7 @@ public class Financeiro {
 		enviarCobranca(aluno, valorFinal);
 	}
 
-	private static void enviarCobranca(Aluno aluno, float valorFinal) {
+	public static void enviarCobranca(Aluno aluno, float valorFinal) {
 		aluno.setValorSemestre(valorFinal);
 	}
 }

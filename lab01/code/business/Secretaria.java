@@ -9,6 +9,24 @@ public class Secretaria {
 	private ArrayList<Professor> professores = new ArrayList<Professor>();
 	private ArrayList<Disciplina> curriculoSemestre = new ArrayList<Disciplina>();
 
+	// Getters
+
+	public ArrayList<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public ArrayList<Curso> getCursos() {
+		return cursos;
+	}
+
+	public ArrayList<Disciplina> getCurriculoSemestre() {
+		return curriculoSemestre;
+	}
+
+	public ArrayList<Professor> getProfessores() {
+		return professores;
+	}
+
 	// Notifica financeiro para cobrança do aluno
 
 	public void notificarFinanceiro(Aluno aluno) {
