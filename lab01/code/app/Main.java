@@ -112,7 +112,7 @@ public class Main {
         String choicePass;
 
         do {
-            Scanner acesso = new Scanner(System.in)
+            Scanner acesso = new Scanner(System.in);
 
             System.out.println("Digite seu nome: ");
             choiceName = acesso.nextLine();
@@ -321,7 +321,7 @@ public class Main {
                 Financeiro.enviarCobranca(alunoCobranca, valorFinal);
 
                 break;
-
+            }
     }
 
     public static void main(String args[]) throws CursoInexistenteException, AutentificacaoException {
