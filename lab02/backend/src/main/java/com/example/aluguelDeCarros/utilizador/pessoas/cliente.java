@@ -1,7 +1,7 @@
 package com.example.aluguelDeCarros.utilizador.pessoas;
 
-import com.example.aluguelDeCarros.utilizador.usuario;
+import com.example.aluguelDeCarros.utilizador.Usuario;
 
-public class cliente extends usuario{
+public class Cliente extends Usuario{
     
 }
