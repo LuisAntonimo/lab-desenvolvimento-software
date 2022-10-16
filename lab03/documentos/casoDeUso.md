@@ -10,4 +10,4 @@
 | Como Aluno       | gostaria de consultar o extrato da conta   | para visualizar total de moedas recebidas ou trocadas |
 | Como Aluno       | gostaria de selecionar vantagens           | para trocá-las por benefícios                         |
 | Como Empresa     | gostaria de me cadastrar no sistema        | para oferecer vantagens                               |
-| Como secretária  | gostaria de notificar o setor financeiro   | para resolver questões de pagamento                   |
+| Como Usuário     | gostaria de ter login e senha              | para acessar o sistema                                |
