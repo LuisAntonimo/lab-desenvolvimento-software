@@ -11,3 +11,4 @@
 | Como Aluno      | gostaria de selecionar vantagens            | para trocá-las por benefícios                         |
 | Como Empresa    | gostaria de cadastrar no sistema            | para oferecer vantagens                               |
 | Como Usuário    | gostaria de ter login e senha               | para acessar o sistema                                |
+| Como empresa    | gostaria de cadastrar vantagens             | para fornecer meus produtos                           |
