@@ -23,8 +23,8 @@ public class AlunoService {
     }
 
     public void addAluno(Aluno aluno) {
-        if (emailInUseValidation(aluno.getEmail())) {
-            throw new IllegalStateException("Email em uso");
+        if (cpfInUseValidation(aluno.getCpf())) {
+            throw new IllegalStateException("cpf em uso");
         }
         alunoRepository.save(aluno);
     }
@@ -36,18 +36,18 @@ public class AlunoService {
     }
 
     @Transactional
-    public void updateAluno(long alunoId, String nome, String email) {
+    public void updateAluno(long alunoId, String nome, String cpf, String rg, String curso, double saldo) {
         Aluno aluno = alunoRepository.findById(alunoId)
                 .orElseThrow(() -> new IllegalStateException(
                         "Não conseguimos encontra o aluno com ID: " + alunoId));
         if (stringValidation(nome, aluno.getNome())) {
             aluno.setNome(nome);
         }
-        if (stringValidation(email, aluno.getEmail())) {
-            if (emailInUseValidation(email)) {
-                throw new IllegalStateException("Email em uso ou inexitente");
+        if (stringValidation(cpf, aluno.getCpf())) {
+            if (cpfInUseValidation(cpf)) {
+                throw new IllegalStateException("cpf em uso ou inexitente");
             }
-            aluno.setEmail(email);
+            aluno.setCpf(cpf);
         }
     }
 
@@ -55,8 +55,8 @@ public class AlunoService {
         return (toValid != null && toValid.length() > 0 && !toValid.equals(existing));
     }
 
-    public boolean emailInUseValidation(String email) {
-        Optional<Aluno> alunoOptional = alunoRepository.findAlunoByEmail(email);
+    public boolean cpfInUseValidation(String cpf) {
+        Optional<Aluno> alunoOptional = alunoRepository.findAlunoByCpf(cpf);
         return (alunoOptional.isPresent());
     }
 

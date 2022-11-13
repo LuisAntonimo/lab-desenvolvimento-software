@@ -48,8 +48,10 @@ public class AlunoController {
 
     @PutMapping(path = "{alunoId}")
     public void updateAluno(@PathVariable("alunoId") long alunoId,
-            @RequestParam(required = false) String nome, @RequestParam(required = false) String email) {
-        alunoService.updateAluno(alunoId, nome, email);
+            @RequestParam(required = false) String nome, @RequestParam(required = true) String cpf,
+            @RequestParam(required = true) String rg, @RequestParam(required = false) String curso,
+            @RequestParam(required = false) double saldo) {
+        alunoService.updateAluno(alunoId, nome, cpf, rg, curso, saldo);
     }
 
 }

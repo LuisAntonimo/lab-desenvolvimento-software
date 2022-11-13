@@ -48,8 +48,8 @@ public class EmpresaController {
 
     @PutMapping(path = "{empresaId}")
     public void updateEmpresa(@PathVariable("empresaId") long empresaId,
-            @RequestParam(required = false) String nome, @RequestParam(required = false) String email) {
-        empresaService.updateEmpresa(empresaId, nome, email);
+            @RequestParam(required = false) String nome, @RequestParam(required = true) String cnpj) {
+        empresaService.updateEmpresa(empresaId, nome, cnpj);
     }
 
 }

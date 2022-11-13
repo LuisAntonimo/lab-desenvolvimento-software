@@ -23,8 +23,8 @@ public class EmpresaService {
     }
 
     public void addEmpresa(Empresa empresa) {
-        if (emailInUseValidation(empresa.getEmail())) {
-            throw new IllegalStateException("Email em uso");
+        if (cnpjInUseValidation(empresa.getCnpj())) {
+            throw new IllegalStateException("cnpj em uso");
         }
         empresaRepository.save(empresa);
     }
@@ -36,18 +36,18 @@ public class EmpresaService {
     }
 
     @Transactional
-    public void updateEmpresa(long empresaId, String nome, String email) {
+    public void updateEmpresa(long empresaId, String nome, String cnpj) {
         Empresa empresa = empresaRepository.findById(empresaId)
                 .orElseThrow(() -> new IllegalStateException(
                         "Não conseguimos encontra o empresa com ID: " + empresaId));
         if (stringValidation(nome, empresa.getNome())) {
             empresa.setNome(nome);
         }
-        if (stringValidation(email, empresa.getEmail())) {
-            if (emailInUseValidation(email)) {
-                throw new IllegalStateException("Email em uso ou inexitente");
+        if (stringValidation(cnpj, empresa.getCnpj())) {
+            if (cnpjInUseValidation(cnpj)) {
+                throw new IllegalStateException("cnpj em uso ou inexitente");
             }
-            empresa.setEmail(email);
+            empresa.setCnpj(cnpj);
         }
     }
 
@@ -55,8 +55,8 @@ public class EmpresaService {
         return (toValid != null && toValid.length() > 0 && !toValid.equals(existing));
     }
 
-    public boolean emailInUseValidation(String email) {
-        Optional<Empresa> empresaOptional = empresaRepository.findEmpresaByEmail(email);
+    public boolean cnpjInUseValidation(String cnpj) {
+        Optional<Empresa> empresaOptional = empresaRepository.findEmpresaByCnpj(cnpj);
         return (empresaOptional.isPresent());
     }
 

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
-    @Query("SELECT p FROM Empresa p WHERE p.email = ?1")
-    Optional<Empresa> findEmpresaByEmail(String email);
+    @Query("SELECT p FROM Empresa p WHERE p.cnpj = ?1")
+    Optional<Empresa> findEmpresaByCnpj(String cnpj);
 
     @Query("SELECT p FROM Empresa p WHERE p.nome = ?1")
     Optional<Empresa> findEmpresaByNome(String nome);

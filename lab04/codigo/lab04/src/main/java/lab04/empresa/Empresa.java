@@ -11,15 +11,15 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empresa_sequence")
     private long id;
     private String nome;
-    private String email;
+    private String cnpj;
 
     public Empresa() {
 
     }
 
-    public Empresa(String nome, String email) {
+    public Empresa(String nome, String cnpj) {
         setNome(nome);
-        setEmail(email);
+        setCnpj(cnpj);
     }
 
     /**
@@ -30,10 +30,10 @@ public class Empresa {
     }
 
     /**
-     * @param email the email to set
+     * @param cnpj the cnpj to set
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     /**
@@ -51,10 +51,10 @@ public class Empresa {
     }
 
     /**
-     * @return String return the email
+     * @return String return the cnpj
      */
-    public String getEmail() {
-        return email;
+    public String getCnpj() {
+        return cnpj;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Empresa {
         return "{" +
                 "Id: " + getId() +
                 "; Nome: " + getNome() +
-                "; Email: " + getEmail() +
+                "; CNPJ: " + getCnpj() +
                 "}";
     }
 

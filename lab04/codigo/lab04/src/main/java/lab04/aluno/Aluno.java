@@ -2,6 +2,8 @@ package lab04.aluno;
 
 import javax.persistence.*;
 
+import lab04.vantagem.Vantagem;
+
 @Entity
 @Table
 public class Aluno {
@@ -10,15 +12,21 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aluno_sequence")
     private long id;
     private String nome;
-    private String email;
+    private String cpf;
+    private String rg;
+    private String curso;
+    private double saldo;
 
     public Aluno() {
 
     }
 
-    public Aluno(String nome, String email) {
+    public Aluno(String nome, String cpf, String rg, String curso, double saldo) {
         setNome(nome);
-        setEmail(email);
+        setCpf(cpf);
+        setRg(rg);
+        setCurso(curso);
+        setSaldo(saldo);
     }
 
     /**
@@ -29,10 +37,10 @@ public class Aluno {
     }
 
     /**
-     * @param email the email to set
+     * @param cpf the cpf to set
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     /**
@@ -50,10 +58,63 @@ public class Aluno {
     }
 
     /**
-     * @return String return the email
+     * @return String return the cpf
      */
-    public String getEmail() {
-        return email;
+    public String getCpf() {
+        return cpf;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return String return the rg
+     */
+    public String getRg() {
+        return rg;
+    }
+
+    /**
+     * @param rg the rg to set
+     */
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    /**
+     * @return String return the curso
+     */
+    public String getCurso() {
+        return curso;
+    }
+
+    /**
+     * @param curso the curso to set
+     */
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+
+    /**
+     * @return double return the saldo
+     */
+    public double getSaldo() {
+        return saldo;
+    }
+
+    /**
+     * @param saldo the saldo to set
+     */
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public void trocarMoedas(Vantagem vantegem){
+        
     }
 
     @Override
@@ -61,8 +122,10 @@ public class Aluno {
         return "{" +
                 "Id: " + getId() +
                 "; Nome: " + getNome() +
-                "; Email: " + getEmail() +
+                "; CPF: " + getCpf() +
+                "; RG: " + getRg() +
+                "; curso: " + getCurso() +
+                "; saldo: " + getSaldo() +
                 "}";
     }
-
 }
