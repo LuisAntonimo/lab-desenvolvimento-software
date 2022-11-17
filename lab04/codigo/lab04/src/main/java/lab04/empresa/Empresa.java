@@ -2,31 +2,21 @@ package lab04.empresa;
 
 import javax.persistence.*;
 
+import lab04.usuario.Usuario;
+
 @Entity
 @Table
-public class Empresa {
+public class Empresa extends Usuario {
 
-    @Id
-    @SequenceGenerator(name = "empresa_sequence", sequenceName = "empresa_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empresa_sequence")
-    private long id;
-    private String nome;
     private String cnpj;
 
     public Empresa() {
 
     }
 
-    public Empresa(String nome, String cnpj) {
-        setNome(nome);
+    public Empresa(String nome, String email, String senha, String cnpj) {
+        super(nome, email, senha);
         setCnpj(cnpj);
-    }
-
-    /**
-     * @param nome the nome to set
-     */
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     /**
@@ -34,20 +24,6 @@ public class Empresa {
      */
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
-    }
-
-    /**
-     * @return int return the id
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * @return String return the nome
-     */
-    public String getNome() {
-        return nome;
     }
 
     /**
@@ -59,9 +35,7 @@ public class Empresa {
 
     @Override
     public String toString() {
-        return "{" +
-                "Id: " + getId() +
-                "; Nome: " + getNome() +
+        return super.toString() +
                 "; CNPJ: " + getCnpj() +
                 "}";
     }

@@ -36,18 +36,34 @@ public class AlunoService {
     }
 
     @Transactional
-    public void updateAluno(long alunoId, String nome, String cpf, String rg, String curso, double saldo) {
+    public void updateAluno(long alunoId, String nome, String email, String senha, String cpf, String rg, String curso,
+            double saldo) {
         Aluno aluno = alunoRepository.findById(alunoId)
                 .orElseThrow(() -> new IllegalStateException(
                         "Não conseguimos encontra o aluno com ID: " + alunoId));
         if (stringValidation(nome, aluno.getNome())) {
             aluno.setNome(nome);
         }
+        if (stringValidation(email, aluno.getEmail())) {
+            aluno.setEmail(email);
+        }
+        if (stringValidation(senha, aluno.getSenha())) {
+            aluno.setSenha(senha);
+        }
         if (stringValidation(cpf, aluno.getCpf())) {
             if (cpfInUseValidation(cpf)) {
                 throw new IllegalStateException("cpf em uso ou inexitente");
             }
             aluno.setCpf(cpf);
+        }
+        if (stringValidation(rg, aluno.getRg())) {
+            aluno.setRg(rg);
+        }
+        if (stringValidation(curso, aluno.getCurso())) {
+            aluno.setCurso(curso);
+        }
+        if (saldo != aluno.getSaldo()) {
+            aluno.setSaldo(saldo);// capaz de dar erro pq n pode receber null, aí é só trocar pra classe Double
         }
     }
 

@@ -48,8 +48,11 @@ public class ProfessorController {
 
         @PutMapping(path = "{professorId}")
         public void updateProfessor(@PathVariable("professorId") long professorId,
-                        @RequestParam(required = false) String nome, @RequestParam(required = false) String email) {
-                professorService.updateProfessor(professorId, nome, email);
+                        @RequestParam(required = false) String nome, @RequestParam(required = false) String email,
+                        @RequestParam(required = false) String senha,
+                        @RequestParam(required = false) String cpf,
+                        @RequestParam(required = false) double saldo) {
+                professorService.updateProfessor(professorId, nome, email, senha, cpf, saldo);
         }
 
 }

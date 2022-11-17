@@ -36,7 +36,7 @@ public class ProfessorService {
     }
 
     @Transactional
-    public void updateProfessor(long professorId, String nome, String email) {
+    public void updateProfessor(long professorId, String nome, String email, String senha, String cpf, double saldo) {
         Professor professor = professorRepository.findById(professorId)
                 .orElseThrow(() -> new IllegalStateException(
                         "Não conseguimos encontra o professor com ID: " + professorId));
@@ -49,6 +49,13 @@ public class ProfessorService {
             }
             professor.setEmail(email);
         }
+        if (stringValidation(senha, professor.getSenha())) {
+            professor.setSenha(senha);
+        }
+        if (stringValidation(cpf, professor.getCpf())) {
+            professor.setCpf(cpf);
+        }
+        professor.setSaldo(saldo);
     }
 
     public boolean stringValidation(String toValid, String existing) {

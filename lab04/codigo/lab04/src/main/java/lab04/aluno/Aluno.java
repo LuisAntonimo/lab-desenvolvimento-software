@@ -2,16 +2,12 @@ package lab04.aluno;
 
 import javax.persistence.*;
 
+import lab04.usuario.Usuario;
 import lab04.vantagem.Vantagem;
 
 @Entity
 @Table
-public class Aluno {
-    @Id
-    @SequenceGenerator(name = "aluno_sequence", sequenceName = "aluno_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aluno_sequence")
-    private long id;
-    private String nome;
+public class Aluno extends Usuario {
     private String cpf;
     private String rg;
     private String curso;
@@ -21,19 +17,12 @@ public class Aluno {
 
     }
 
-    public Aluno(String nome, String cpf, String rg, String curso, double saldo) {
-        setNome(nome);
+    public Aluno(String nome, String email, String senha, String cpf, String rg, String curso, double saldo) {
+        super(nome, email, senha);
         setCpf(cpf);
         setRg(rg);
         setCurso(curso);
         setSaldo(saldo);
-    }
-
-    /**
-     * @param nome the nome to set
-     */
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     /**
@@ -44,31 +33,10 @@ public class Aluno {
     }
 
     /**
-     * @return int return the id
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * @return String return the nome
-     */
-    public String getNome() {
-        return nome;
-    }
-
-    /**
      * @return String return the cpf
      */
     public String getCpf() {
         return cpf;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(long id) {
-        this.id = id;
     }
 
     /**
@@ -113,15 +81,13 @@ public class Aluno {
         this.saldo = saldo;
     }
 
-    public void trocarMoedas(Vantagem vantegem){
-        
+    public void trocarMoedas(Vantagem vantegem) {
+
     }
 
     @Override
     public String toString() {
-        return "{" +
-                "Id: " + getId() +
-                "; Nome: " + getNome() +
+        return super.toString() +
                 "; CPF: " + getCpf() +
                 "; RG: " + getRg() +
                 "; curso: " + getCurso() +

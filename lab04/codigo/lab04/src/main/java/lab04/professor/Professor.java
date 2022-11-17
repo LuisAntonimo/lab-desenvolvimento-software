@@ -2,68 +2,58 @@ package lab04.professor;
 
 import javax.persistence.*;
 
+import lab04.usuario.Usuario;
+
 @Entity
 @Table
-public class Professor {
-    @Id
-    @SequenceGenerator(name = "professor_sequence", sequenceName = "professor_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "professor_sequence")
-    private long id;
-    private String nome;
-    private String email;
+public class Professor extends Usuario {
+
+    private String cpf;
+    private double saldo;
 
     public Professor() {
-
+        super();
     }
 
-    public Professor(String nome, String email) {
-        setNome(nome);
-        setEmail(email);
-    }
-
-    /**
-     * @param nome the nome to set
-     */
-    public void setNome(String nome) {
-        this.nome = nome;
+    public Professor(String nome, String email, String senha, String cpf, double saldo) {
+        super(nome, email, senha);
+        setCpf(cpf);
+        setSaldo(saldo);
     }
 
     /**
-     * @param email the email to set
+     * @param cpf the cpf to set
      */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    /**
-     * @return int return the id
-     */
-    public long getId() {
-        return id;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     /**
-     * @return String return the nome
+     * @return String return the cpf
      */
-    public String getNome() {
-        return nome;
+    public String getCpf() {
+        return cpf;
     }
 
     /**
-     * @return String return the email
+     * @return double return the saldo
      */
-    public String getEmail() {
-        return email;
+    public double getSaldo() {
+        return saldo;
+    }
+
+    /**
+     * @param saldo the saldo to set
+     */
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 
     @Override
     public String toString() {
-        return "{" +
-                "Id: " + getId() +
-                "; Nome: " + getNome() +
-                "; Email: " + getEmail() +
+        return super.toString() +
+                "; CPF: " + getCpf() +
                 "}";
     }
 
 }
-
